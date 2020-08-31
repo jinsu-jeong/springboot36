@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="layout/default">
+
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}">상품 리스트 조회</title>
+	</th:block>
+	<th:block layout:fragment="customContent">
+<!-- 	
+		<form action="/getGoodsList" method="post">
+			<select>
+				
+			</select>
+		</form>
+ -->
+		<table border="1">
+			<thead>
+				<tr>
+					<th>상품코드</th>
+					<th>상품명</th>
+					<th>가격</th>
+					<th>판매자</th>
+					<th>등록일</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="l : ${goodsList}">
+					<td th:text="${l.goodsCode}"></td>
+					<td th:text="${l.goodsName}"></td>
+					<td th:text="${l.goodsPrice}"></td>
+					<td th:text="${l.goodsSellerId}"></td>
+					<td th:text="${l.goodsRegDate}"></td>
+					<td>
+						<a href="#">수정</a>
+					</td>
+					<td>
+						<a href="#">삭제</a>					
+					</td>
+				</tr>			
+			</tbody>
+		</table>
+
+	</th:block>	  
+</html>

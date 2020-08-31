@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<!-- start header -->
+	<div id="header" th:fragment="headerFragment">
+		<!-- 
+			타임리프에서 세션영역에 접근하는 방법 :
+			null 체크하는 방법
+			${session.SID == null} => 로그인이 안된 상태.
+			${session.SLEVEL == 1} 관리자
+			${session.SLEVEL eq 1} 판매자(타임리프에서는 eq로 표현 가능)
+			${session.SLEVEL == 1} 구매자
+			
+			프로젝트의 권한별 메뉴 세팅을 정하자.
+			
+			비회원 : 회원가입, 로그인
+			
+			모든 회원 : 로그인, 로그아웃
+			관리자 : 모든 메뉴 ,로그아웃
+			판매자 : 상품 등록, 상품 검색, 로그아웃
+			구매자 : 상품 검색, 로그아웃
+			
+			thymeleaf : eq == , ne !=
+			mybatis : eq == , neq !=
+			
+		 -->
+		header.html<br>
+		상단메뉴<br><br><br>
+		<a href="/addMember" th:if="${session.SID eq null || session.SLEVEL eq 1}">회원가입</a>
+		<a href="/getMemberList" th:id="${session.SLEVEL eq 1}">전체회원</a>	
+		<a href="/getGoodsList">상품리스트</a>	
+		<a th:href="@{/addGoods}" th:if="${session.SLEVEL < 3}">상품등록</a>		
+		<a th:href="@{#}" th:unless="${session.SID eq null}">상품검색</a>
+		<a href="/login" th:if="${session.SID eq null}">로그인</a>
+		<a href="/logout" th:if="${session.SID eq null}">로그아웃</a>
+		<a href="/getLoginHistory" th:id="${session.SLEVEL eq 1}">로그인 이력</a>	<!-- 관리자만 조회 가능 -->
+	</div>
+	<!-- end header -->
+	
+</html>
